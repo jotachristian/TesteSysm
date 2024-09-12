@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Inicial - Sistema de Vendas</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Link para a biblioteca Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header class="header">
+        <!-- Botão Menu Sanduíche -->
+        <div class="menu-toggle" id="menuToggle">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <!-- Logo da Empresa -->
+        <div class="logo">
+            <img src="/img/logomasi_Branca.png" alt="Logo da Empresa">
+        </div>
+    </header>
+
+    <!-- Menu Lateral (Visível no Desktop, Menu Sanduíche no Mobile) -->
+    <aside class="sidebar" id="sidebar">
+        <!-- Botão de Voltar -->
+        <div class="back-button" id="backButton">&times;</div>
+        <div class="profile">
+            <img src="/img/usuario.png" alt="Foto do Funcionário" class="profile-pic">
+            <h3>Daniel & Christian</h3>
+            <p>Desenvolvedores Front End</p>
+        </div>
+        <nav class="menu">
+            <a href="#">Dashboard</a>
+            <a href="#">Opção 2</a>
+            <a href="#">Opção 3</a>
+        </nav>
+    </aside>
+
+    <!-- Conteúdo Principal -->
+    <div class="container">
+        <main class="main-content">
+            <!-- Dashboard -->
+            <section class="dashboard">
+                <div><h1>Dashboard</h1>
+                    <div class="card">
+                    
+                        <img src="/img/tot.svg" alt="qtd vendas" style="max-width: 70px;">
+                        <h1>27</h1>
+                        <p>
+                            Qtd de Itens vendidos
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    
+                    <img src="/img//money.svg" alt="Total de vendas"style="max-width: 70px;" >
+                    <h1>R$524,79</h1>
+                    Total de Vendas do Funcionário
+                </div>
+                <div class="card">
+                    <img src="/img/com.svg" alt="comissões" style="max-width: 70px;">
+                    <h1>R$1374,79</h1>
+                    Total em Comissões
+                </div>
+                <div class="card">
+                    <img src="/img/doc.svg" alt="consultas" style="max-width: 35px;">
+                    <h1>4</h1>
+                    Minhas Consultas
+                </div>
+                <div class="card">
+                    <img src="/img/set.svg" alt="Serviços"style="max-width: 50px;">
+                    <h1>11</h1>
+                    Ordem de Serviço
+                </div>
+            </section>
+
+            <!-- Gráficos de Vendas e Comissões -->
+            <section class="charts">
+                <div class="chart-container">
+                    <canvas id="salesChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <canvas id="commissionsChart"></canvas>
+                </div>
+            </section>
+
+            <!-- Opções de Acesso -->
+            <section class="options">
+                <div class="option">Produtos</div>
+                <div class="option">Serviços</div>
+                <div class="option">Comercial</div>
+                <div class="option">Pessoa</div>
+                <div class="option">Caixa</div>
+                <div class="option">Cadastro</div>
+                <div class="option">Estoque</div>
+                <div class="option">Cobrança</div>
+                <div class="option">Consulta</div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Script para os Gráficos -->
+    <script>
+        // Mostrar ou esconder o menu lateral em dispositivos móveis
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.toggle('active');
+        });
+
+        // Esconder o menu lateral ao clicar no botão de voltar
+        document.getElementById('backButton').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.remove('active');
+        });
+
+        // Gráfico de Rosca - Vendas
+        const salesCtx = document.getElementById('salesChart').getContext('2d');
+        const salesChart = new Chart(salesCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Óculos de Grau', 'Óculos de Sol', 'Lentes de Contato'],
+                datasets: [{
+                    data: [55, 25, 20], // Dados fictícios
+                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Distribuição de Vendas'
+                    }
+                }
+            }
+        });
+
+        // Gráfico de Linhas - Comissões
+        const commissionsCtx = document.getElementById('commissionsChart').getContext('2d');
+        const commissionsChart = new Chart(commissionsCtx, {
+            type: 'line',
+            data: {
+                labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho'],
+                datasets: [{
+                    label: 'Comissões',
+                    data: [1200, 1900, 3000, 5000, 2500, 4500], // Dados fictícios
+                    borderColor: '#36A2EB',
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    fill: true,
+                    tension: 0.3
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Comissões Mensais'
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
